@@ -14,7 +14,6 @@ from keras.layers import Input, Conv1D, Dropout, MaxPooling1D, BatchNormalizatio
 from sklearn.metrics import accuracy_score, classification_report
 
 
-# noinspection PyTypeChecker
 class AnomalyClassifier:
     def __init__(self):
         self.model = None

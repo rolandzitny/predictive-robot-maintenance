@@ -3,7 +3,6 @@ import pandas as pd
 from influxdb_client import InfluxDBClient
 
 
-
 class InfluxDBHandler:
     def __init__(self):
         config = configparser.ConfigParser()

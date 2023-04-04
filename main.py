@@ -75,6 +75,10 @@ def main():
     dataset_path = 'stage2_arm1_9-10.csv'
     x_train, y_train, x_test, y_test, y_test_classes = temp_detector_data2(dataset_path)
 
+
+
+    exit(0)
+
     anomaly_detector_test(False, x_train, y_train, x_test, y_test)
     anomaly_classifier_test(True, x_test, y_test_classes, x_test, y_test_classes)
 
