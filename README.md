@@ -8,7 +8,7 @@ interpretation of results.
 ![Alt text](doc/pm.png)
 
 The data collection system uses custom libraries, [slmpclient](https://pypi.org/project/slmpclient/) and [mitsubishi-monitor](https://pypi.org/project/mitsubishi-monitor/), for communicating with the robotic arms and obtaining energy consumption.
-System of analysis methods uses the following algorithms to obtain corresponding information about the condition and maintenance needs of monitored devices:
+This code only contains a system of analysis methods which uses the following algorithms to obtain corresponding information about the condition and maintenance needs of monitored devices:
 * Anomaly Detection - Convolutional Autoencoder
 * Anomaly Classification - Convolutional neural network
 * Extracting segments of movement - Hidden Markov Models
