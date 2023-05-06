@@ -1,0 +1,8 @@
+pandas
+numpy
+keras
+matplotlib
+scikit-learn
+hmmlearn
+scipy
+schedule

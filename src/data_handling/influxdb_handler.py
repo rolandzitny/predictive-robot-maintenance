@@ -1,3 +1,7 @@
+"""
+This handler enables communication with the InfluxDB database.
+It provides the possibility of obtaining sensor data from the database.
+"""
 import configparser
 import pandas as pd
 from influxdb_client import InfluxDBClient
@@ -5,6 +9,9 @@ from influxdb_client import InfluxDBClient
 
 class InfluxDBHandler:
     def __init__(self):
+        """
+        Initialize handler using configuration file.
+        """
         config = configparser.ConfigParser()
         config.read('config/configurations.ini')
 
@@ -28,26 +35,54 @@ class InfluxDBHandler:
                                          org=self.dst_org,
                                          timeout=0)
 
-    def query_maintenance_data(self):
-        end_time = pd.Timestamp.utcnow()
-        start_time = end_time - pd.Timedelta(minutes=1)
-
-        query = f"""
-        from(bucket:"slmp_robot")
-        |> range(start: 2023-01-11T12:00:00Z, stop: 2023-01-11T12:01:00Z)
-        |> filter(fn: (r) => r._measurement == "energy-consumption")
-        |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-        |> group(columns: ["arm_tag"])
+    def query_energy_consumption_by_hours(self, hours, arm_tag):
         """
+        Query X hours of sensory data from database.
+
+        :param hours: Number of hours.
+        :param arm_tag: Tag of diagnosed device in InfluxDB.
+        :return: Dataframe with energy consumption data.
+        """
+        query = f'from(bucket:"{self.src_bucket}") \
+                |> range(start:-{str(hours)}h) \
+                |> filter(fn: (r) => r._measurement == "energy-consumption" and r.arm_tag == "{arm_tag}" and\
+                 (r._field == "J1" or r._field == "J2" or r._field == "J3" or \
+                 r._field == "J4" or r._field == "J5" or r._field == "J6"))\
+                |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
         query_api = self.src_client.query_api()
-        results = query_api.query(query=query, org=self.src_org)
+        result = query_api.query_data_frame(query, org=self.src_org)
+        df = pd.DataFrame(result)
+        df = df[["J1", "J2", "J3", "J4", "J5", "J6"]]
+        # Extract the signal values as a numpy array
+        energy_consumption_values = df.values[:, 0:]
 
-        dfs = {}
-        for table in results:
-            df = pd.DataFrame.from_records(table.records)
-            dfs[df["arm_tag"].iloc[0]] = df.drop(columns=["arm_tag"])
+        return energy_consumption_values
 
-        print(dfs)
+    def query_energy_consumption_by_day(self, date, arm_tag):
+        """
+        Query one day of sensory data from database.
+
+        :param date: Date of desired day.
+        :param arm_tag: Tag of diagnosed device in InfluxDB.
+        :return: Dataframe with energy consumption data.
+        """
+        query = f'from(bucket:"{self.src_bucket}") \
+                |> range(start: {date}T06:00:00Z, stop: {date}T22:00:00Z)\
+                |> filter(fn: (r) => r._measurement == "energy-consumption" and r.arm_tag == "{arm_tag}" and\
+                 (r._field == "J1" or r._field == "J2" or r._field == "J3" or \
+                 r._field == "J4" or r._field == "J5" or r._field == "J6"))\
+                |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")'
+
+        query_api = self.src_client.query_api()
+        result = query_api.query_data_frame(query, org=self.src_org)
+        df = pd.DataFrame(result)
+        df = df[["J1", "J2", "J3", "J4", "J5", "J6"]]
+        # Extract the signal values as a numpy array
+        energy_consumption_values = df.values[:, 0:]
+
+        return energy_consumption_values
 
     def write_maintenance_results(self):
+        # TODO
         pass
