@@ -15,6 +15,6 @@ This code only contains a system of analysis methods which uses the following al
 
 
 The obtained information about the condition of monitored devices is then transformed into severity levels, which can be applied in deciding the time frame for when the monitored devices will continue to function.
-The entire documentation and description of the development of predictive maintenance of Mitsubishi MELFA robotic arms is in Slovak language, located in the folder *doc*.
+The entire documentation and description of the development of predictive maintenance of Mitsubishi MELFA robotic arms is in Slovak language, located here: https://www.vut.cz/studenti/zav-prace/detail/143131.
 
 ![Alt text](doc/pm-mmelfa.png)
