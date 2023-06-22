@@ -199,5 +199,8 @@ def get_maintenance_plan(diagnosis_results):
     :return: Maintenance plan.
     """
     severity_results = get_severity_levels(diagnosis_results)
+    print("")
+    print('Severity results:')
+    print(severity_results)
     maintenance_plan = get_highest_severity(severity_results)
     return maintenance_plan

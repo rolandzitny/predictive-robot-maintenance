@@ -52,5 +52,3 @@ if __name__ == '__main__':
     # Wait for all processes to finish
     for process in diagnostic_processes:
         process.join()
-
-

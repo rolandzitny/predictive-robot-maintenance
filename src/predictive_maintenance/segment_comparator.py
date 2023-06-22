@@ -478,7 +478,7 @@ def get_signal_comparison_results(matched_segments):
             'max': {'avg': round(max_avg, 4), 'max': round(max_max, 4), 'min': round(max_min, 4)},
             'min': {'avg': round(min_avg, 4), 'max': round(min_max, 4), 'min': round(min_min, 4)},
             'ptp': {'avg': round(ptp_avg, 4), 'max': round(ptp_max, 4), 'min': round(ptp_min, 4)},
-            'cor': {'avg': round(1 - cor_avg, 4), 'max': round(1 - cor_min, 4), 'min': round(1 - cor_max, 4)},  # this is right
+            'cor': {'avg': round(1 - cor_avg, 4), 'max': round(1 - cor_min, 4), 'min': round(1 - cor_max, 4)},
             'act': {'avg': round(a_avg, 4), 'max': round(a_max, 4), 'min': round(a_min, 4)},
             'mob': {'avg': round(m_avg, 4), 'max': round(m_max, 4), 'min': round(m_min, 4)},
             'com': {'avg': round(c_avg, 4), 'max': round(c_max, 4), 'min': round(c_min, 4)},
@@ -512,7 +512,7 @@ def get_joint_comparison_results(matched_segments):
             'max': {'avg': round(max_avg, 4), 'max': round(max_max, 4), 'min': round(max_min, 4)},
             'min': {'avg': round(min_avg, 4), 'max': round(min_max, 4), 'min': round(min_min, 4)},
             'ptp': {'avg': round(ptp_avg, 4), 'max': round(ptp_max, 4), 'min': round(ptp_min, 4)},
-            'cor': {'avg': round(1 - cor_avg, 4), 'max': round(1 - cor_min, 4), 'min': round(1 - cor_max, 4)},  # this is right
+            'cor': {'avg': round(1 - cor_avg, 4), 'max': round(1 - cor_min, 4), 'min': round(1 - cor_max, 4)},
             'act': {'avg': round(a_avg, 4), 'max': round(a_max, 4), 'min': round(a_min, 4)},
             'mob': {'avg': round(m_avg, 4), 'max': round(m_max, 4), 'min': round(m_min, 4)},
             'com': {'avg': round(c_avg, 4), 'max': round(c_max, 4), 'min': round(c_min, 4)},

@@ -12,59 +12,6 @@ from src.predictive_maintenance.segment_comparator import SegmentComparator
 from src.predictive_maintenance.maintenance_planner import get_maintenance_plan
 
 
-def test_detector_training():
-    """
-    Test to train and evaluate of anomaly detector.
-    Training and testing dataset is just for showcase.
-    Training data contain data after robot repair and testing data contain data with engine belts wear.
-
-    :return: Evaluation results.
-    """
-
-    data = np.load('data/testing/detector_train_test_data.npz')
-    x_train = np.array(data['x_train'])
-    x_test = np.array(data['x_test'])
-    y_test = np.array(data['y_test'])
-
-    input_shape = (288, 6)
-    anomaly_detector = AnomalyDetector()
-    anomaly_detector.build_model(input_shape=input_shape)
-
-    anomaly_detector.train_model(x_train=x_train, y_train=x_train, epochs=10, batch_size=16, shuffle=True,
-                                 patience=False, verbose=True)
-    threshold = anomaly_detector.estimate_threshold(x_test, x_test)
-    anomaly_detector.set_threshold(threshold)
-
-    eval_res = anomaly_detector.evaluate(x_test, y_test)
-    return eval_res
-
-
-def test_classifier_training():
-    """
-    Test to train and evaluate of anomaly classifier.
-    Training and testing dataset is just for showcase.
-    Training and testing data contain normal windows and windows with engine belts wear.
-
-    :return: Evaluation results.
-    """
-
-    data = np.load('data/testing/classifier_train_test_data.npz')
-    x_train = np.array(data['x_train'])
-    y_train = np.array(data['y_train'])
-    x_test = np.array(data['x_test'])
-    y_test = np.array(data['y_test'])
-
-    input_shape = (288, 6)
-    anomaly_classifier = AnomalyClassifier()
-    anomaly_classifier.build_model(input_shape=input_shape, classes_num=2)
-
-    anomaly_classifier.train_model(x_train=x_train, y_train=y_train, epochs=100, batch_size=16, shuffle=True,
-                                   patience=False, verbose=True, num_classes=2)
-
-    eval_res = anomaly_classifier.evaluate(x_test, y_test)
-    return eval_res
-
-
 def test_segmentation():
     """
     Test segmentation. Created segments are plotted.
